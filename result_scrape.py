@@ -7,7 +7,7 @@ semester="V"
 subjects={}
 score={}
 
-browser=webdriver.Remote(url, webdriver.DesiredCapabilities.HTMLUNITWITHJS)#webdriver.Firefox()
+browser=webdriver.Firefox()
 
 branch='cs'
 batch='11'

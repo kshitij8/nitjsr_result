@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 
 url="http://117.211.91.61/web/Default.aspx"
-semester="V"
+semester="VI"
 
 subjects={}
 score={}
@@ -13,12 +13,15 @@ branch='cs'
 batch='11'
 
 for i in range(1,600):
-    browser.get(url)
+    try:
+        browser.get(url)
+    except:
+        pass
     regno=browser.find_element_by_id("txtRegno")
     rollno='0'*(3-len(str(i)))+str(i)
     
     registration=branch+'1'+batch+rollno
-    
+    regno.clear()
     regno.send_keys(registration)
     
     show=browser.find_element_by_id("btnimgShow")

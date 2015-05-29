@@ -1,8 +1,12 @@
+#! /usr/bin/env python
+# Magic from future for pprint compatibility
+from __future__ import print_function
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 
 url="http://117.211.91.61/web/Default.aspx"
-semester="VI"
+semester="VIII"
 
 subjects={}
 score={}
@@ -15,8 +19,10 @@ batch='11'
 for i in range(1,600):
     try:
         browser.get(url)
-    except:
-        pass
+    except e:
+        print("ERROR: Failed to load url: %s"%url)
+        raise(e)
+
     regno=browser.find_element_by_id("txtRegno")
     rollno='0'*(3-len(str(i)))+str(i)
     
@@ -33,7 +39,11 @@ for i in range(1,600):
         continue
     
     #sem.deselect_all()
-    sem.select_by_visible_text(semester)
+    try:
+        sem.select_by_visible_text(semester)
+    except:
+        print("ERROR: The semester result was not found for registration no: %s"%registration)
+        continue
 
     result=browser.find_element_by_id("btnimgShowResult")
     result.click()
@@ -68,16 +78,16 @@ for i in range(1,600):
         
         j=find
    
-    print "RollNo:%-3s Name:%-30s"%(rollno,score[registration]["name"]),
+    print ("RollNo:%-3s Name:%-30s"%(rollno,score[registration]["name"]), end=' ')
     
     for j in sorted(score[registration]["grades"].keys()):
-        print j+":"+score[registration]["grades"][j],
+        print ( j + ":"+score[registration]["grades"][j], end=' ')
         
-    print "SGPA:"+score[registration]["SGPA"],"CGPA:"+score[registration]["CGPA"]
+    print ("SGPA:"+score[registration]["SGPA"],"CGPA:"+score[registration]["CGPA"])
 
-print "\nSubject Code Keys:"
+print ("\nSubject Code Keys:")
 for j in sorted(subjects.keys()):
-    print "%s: %s"%(j,subjects[j])
+    print ("%s: %s"%(j,subjects[j]))
     
 
 

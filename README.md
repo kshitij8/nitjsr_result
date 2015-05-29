@@ -7,4 +7,4 @@ The sort_m can be used to sort the data by a particular characteristic by readin
 Requires:
 * Selenium:
 	- install using pip or downloading package
-* Python 2 (Python3 not supported)
+* Python 2 and Python3 both supported
